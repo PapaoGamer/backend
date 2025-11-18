@@ -18,9 +18,15 @@ const db = new sqlite3.Database('db.sqlite', (err) => {
 // ENV
 const JWT_SECRET = process.env.JWT_SECRET || 'troque_isto_para_producao';
 const PORT = process.env.PORT || 3000;
-const CORS_ORIGIN = process.env.CORS_ORIGIN || '*';
 
-app.use(cors({ origin: CORS_ORIGIN }));
+// Liberar apenas o front-end do GitHub Pages
+const CORS_ORIGIN = 'https://papaogamer.github.io';
+app.use(cors({
+  origin: CORS_ORIGIN,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
 // Criar tabela se não existir
