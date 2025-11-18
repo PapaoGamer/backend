@@ -21,11 +21,17 @@ const PORT = process.env.PORT || 3000;
 
 // Liberar apenas o front-end do GitHub Pages
 const CORS_ORIGIN = 'https://papaogamer.github.io';
-app.use(cors({
+const corsOptions = {
   origin: CORS_ORIGIN,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization']
+};
+
+// Aplicar CORS para todas as rotas
+app.use(cors(corsOptions));
+
+// Permitir que todas as requisições OPTIONS (preflight) respondam corretamente
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 
