@@ -70,7 +70,7 @@ app.post('/api/auth/register', (req, res) => {
     if (err) return res.status(500).json({ error: "Erro no banco" });
     if (row) return res.status(409).json({ error: "Usuário já cadastrado" });
 
-    const hash = await bcrypt.hash(senha, 10);
+    const hash = await bcrypt.hash(senha, 8);
 
     db.run(
       'INSERT INTO users (nome, endereco, email, password_hash) VALUES (?,?,?,?)',
